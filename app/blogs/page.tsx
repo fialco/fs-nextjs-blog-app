@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { getBlogs } from "../services/blogs";
 
-const Notes = () => {
+const Blogs = () => {
   const blogs = getBlogs();
   return (
     <div>
@@ -8,11 +9,12 @@ const Notes = () => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>
-            {blog.author}: {blog.title} - Likes: {blog.likes}
+            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by{" "}
+            {blog.author} -- Likes: {blog.likes}
           </li>
         ))}
       </ul>
     </div>
   );
 };
-export default Notes;
+export default Blogs;
