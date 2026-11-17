@@ -9,7 +9,7 @@ const BlogsContent = async ({
   searchParams: Promise<{ filter?: string }>;
 }) => {
   const { filter } = await searchParams;
-  const allBlogs = getBlogs();
+  const allBlogs = await getBlogs();
 
   const blogs = filter
     ? allBlogs.filter((blog) => blog.title.includes(filter))
@@ -24,13 +24,15 @@ const BlogsContent = async ({
       </form>
       <ul>
         {blogs
-          .sort((a, b) => b.likes - a.likes)
-          .map((blog) => (
-            <li key={blog.id}>
-              <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by{" "}
-              {blog.author} -- Likes: {blog.likes}
-            </li>
-          ))}
+          ? blogs
+              .sort((a, b) => b.likes - a.likes)
+              .map((blog) => (
+                <li key={blog.id}>
+                  <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by{" "}
+                  {blog.author} -- Likes: {blog.likes}
+                </li>
+              ))
+          : []}
       </ul>
     </div>
   );
