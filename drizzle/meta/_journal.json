@@ -8,6 +8,13 @@
       "when": 1794938767072,
       "tag": "0000_bouncy_rumiko_fujikawa",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795272225517,
+      "tag": "0001_thankful_psynapse",
+      "breakpoints": true
     }
   ]
 }
