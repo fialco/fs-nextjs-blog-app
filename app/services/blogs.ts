@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
-import { db } from "../../db";
-import { blogs } from "../../db/schema";
 import { getCurrentUser } from "./session";
+import { db } from "@/db";
+import { blogs } from "@/db/schema";
 
 export const getBlogs = async () => {
   return db.query.blogs.findMany();
