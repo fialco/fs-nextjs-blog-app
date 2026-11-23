@@ -25,7 +25,7 @@ const NewBlog = () => {
               defaultValue={state.values?.title}
             />
           </label>
-          {state.errors?.title && (
+          {state.errors.title && (
             <p style={{ color: "red" }}>{state.errors.title}</p>
           )}
         </div>
@@ -39,7 +39,7 @@ const NewBlog = () => {
               defaultValue={state.values?.author}
             />
           </label>
-          {state.errors?.author && (
+          {state.errors.author && (
             <p style={{ color: "red" }}>{state.errors.author}</p>
           )}
         </div>
@@ -53,7 +53,7 @@ const NewBlog = () => {
               defaultValue={state.values?.url}
             />
           </label>
-          {state.errors?.url && (
+          {state.errors.url && (
             <p style={{ color: "red" }}>{state.errors.url}</p>
           )}
         </div>
