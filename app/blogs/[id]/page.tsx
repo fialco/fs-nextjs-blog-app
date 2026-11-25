@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { getBlogById } from "../../services/blogs";
 import { incrementBlogLikes } from "@/app/actions/blogs";
 import { Suspense } from "react";
+import PageHeader from "@/app/components/PageHeader";
+import SubmitButton from "@/app/components/SubmitButton";
 
 const BlogContent = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -13,13 +15,18 @@ const BlogContent = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      <h2>{blog.title}</h2>
-      <p>Author: {blog.author}</p>
-      <p>URL: {blog.url}</p>
-      <p>Likes: {blog.likes}</p>
+      <PageHeader title={blog.title} />
+      <p className="mb-4 font-semibold">Author: {blog.author}</p>
+      <p className="mb-4 font-semibold">
+        URL:{" "}
+        <a href={blog.url} className="text-blue-600 hover:underline">
+          {blog.url}
+        </a>{" "}
+      </p>
+      <p className="mb-4 font-semibold">Likes: {blog.likes}</p>
       <form action={incrementBlogLikes}>
         <input type="hidden" name="id" value={blog.id} />
-        <button type="submit">Like</button>
+        <SubmitButton label="Like" />
       </form>
     </div>
   );

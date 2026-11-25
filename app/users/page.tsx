@@ -1,17 +1,23 @@
 import Link from "next/link";
 import { getUsers } from "../services/users";
 import { Suspense } from "react";
+import PageHeader from "../components/PageHeader";
 
 const UsersContent = async () => {
   const users = await getUsers();
 
   return (
     <div>
-      <h2>Users</h2>
-      <ul>
+      <PageHeader title="Users" />
+      <ul className="space-y-2">
         {users.map((user) => (
-          <li key={user.id}>
-            <Link href={`/users/${user.username}`}>{user.name}</Link>
+          <li key={user.id} className="border rounded p-3 hover:bg-gray-50">
+            <Link
+              href={`/users/${user.username}`}
+              className="text-blue-600 hover:underline"
+            >
+              {user.name}
+            </Link>
           </li>
         ))}
       </ul>

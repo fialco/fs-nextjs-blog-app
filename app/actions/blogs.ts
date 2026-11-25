@@ -1,9 +1,9 @@
 "use server";
 
+import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { addBlog, incrementLikes } from "../services/blogs";
-import { revalidatePath } from "next/cache";
-import { auth } from "@/auth";
 
 interface Errors {
   title?: string;
@@ -15,6 +15,7 @@ export const createBlog = async (
   _prevState: {
     errors: Errors;
     values: { title: string; author: string; url: string };
+    success: boolean;
   },
   formData: FormData,
 ) => {
@@ -45,13 +46,18 @@ export const createBlog = async (
     return {
       errors,
       values: { title: title, author: author, url: url },
+      success: false,
     };
   }
 
   await addBlog(title, author, url);
 
   revalidatePath("/blogs");
-  redirect("/blogs");
+  return {
+    errors: errors,
+    values: { title: title, author: author, url: url },
+    success: true,
+  };
 };
 
 export const incrementBlogLikes = async (formData: FormData) => {

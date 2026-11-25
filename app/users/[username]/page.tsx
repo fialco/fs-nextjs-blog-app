@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getUserWithBlogs } from "../../services/users";
+import PageHeader from "@/app/components/PageHeader";
 
 const UserContent = async ({
   params,
@@ -17,13 +18,18 @@ const UserContent = async ({
 
   return (
     <div>
-      <h2>{user.name}</h2>
-      <p>username: {user.username}</p>
-      <h3>Blogs</h3>
-      <ul>
+      <PageHeader title={user.name} />
+      <p className="text-gray-600 mb-4">username: {user.username}</p>
+      <h3 className="text-xl font-semibold mb-2">Blogs</h3>
+      <ul className="space-y-2">
         {user.blogs.map((blog) => (
-          <li key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+          <li key={blog.id} className="border rounded p-3 hover:bg-gray-50">
+            <Link
+              href={`/blogs/${blog.id}`}
+              className="text-blue-600 hover:underline"
+            >
+              {blog.title}
+            </Link>
           </li>
         ))}
       </ul>

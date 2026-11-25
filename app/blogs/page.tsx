@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { getBlogs } from "../services/blogs";
-import { searchBlogs } from "../actions/blogs";
 import { Suspense } from "react";
+import { searchBlogs } from "../actions/blogs";
+import { getBlogs } from "../services/blogs";
+import PageHeader from "../components/PageHeader";
 
 const BlogsContent = async ({
   searchParams,
@@ -17,19 +18,32 @@ const BlogsContent = async ({
 
   return (
     <div>
-      <h2>Blogs</h2>
-      <form action={searchBlogs}>
-        <input type="text" name="filter" />
-        <button type="submit">Search</button>
+      <PageHeader title="Blogs" />
+      <form action={searchBlogs} className="mb-4 flex gap-4">
+        <input type="text" name="filter" className="border rounded px-3 py-2" />
+        <button
+          type="submit"
+          className="bg-gray-500 hover:bg-gray-400 px-3 py-2 rounded text-sm"
+        >
+          Search
+        </button>
       </form>
-      <ul>
+      <ul className="space-y-2">
         {blogs
           ? blogs
               .sort((a, b) => b.likes - a.likes)
               .map((blog) => (
-                <li key={blog.id}>
-                  <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by{" "}
-                  {blog.author} -- Likes: {blog.likes}
+                <li
+                  key={blog.id}
+                  className="border rounded p-3 hover:bg-gray-400"
+                >
+                  <Link
+                    href={`/blogs/${blog.id}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {blog.title}
+                  </Link>{" "}
+                  by {blog.author} -- Likes: {blog.likes}
                 </li>
               ))
           : []}

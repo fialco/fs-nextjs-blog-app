@@ -3,6 +3,10 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import PageHeader from "../components/PageHeader";
+import Link from "next/link";
+import FormField from "../components/FormField";
+import SubmitButton from "../components/SubmitButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,23 +32,19 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Username
-            <input type="text" name="username" required />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
-        </div>
-        <button type="submit">Login</button>
+      <PageHeader title="Login" />
+      {error && <p className="text-red-600 mb-4">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <FormField label="Username" name="username" required />
+        <FormField label="Password" name="password" type="password" required />
+        <SubmitButton label="Login" />
       </form>
+      <p className="mt-4">
+        Don&apos;t have an account?{" "}
+        <Link href="/register" className="text-blue-600 hover:underline">
+          Register
+        </Link>
+      </p>
     </div>
   );
 }

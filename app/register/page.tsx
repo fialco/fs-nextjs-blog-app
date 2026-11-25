@@ -2,6 +2,8 @@
 
 import { useActionState } from "react";
 import { registerUser } from "../actions/users";
+import PageHeader from "../components/PageHeader";
+import FormField from "../components/FormField";
 
 const RegisterPage = () => {
   const initialState = {
@@ -18,65 +20,44 @@ const RegisterPage = () => {
 
   return (
     <div>
-      <h2>Register</h2>
-      <form action={formAction}>
-        <div>
-          <label>
-            Username
-            <input
-              type="text"
-              name="username"
-              required
-              defaultValue={state.values.username}
-            />
-          </label>
-          {state.errors.username && (
-            <p style={{ color: "red" }}>{state.errors.username}</p>
-          )}
-        </div>
-        <div>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              required
-              defaultValue={state.values.name}
-            />
-          </label>
-          {state.errors.name && (
-            <p style={{ color: "red" }}>{state.errors.name}</p>
-          )}
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              required
-              defaultValue={state.values.password}
-            />
-          </label>
-          {state.errors.password && (
-            <p style={{ color: "red" }}>{state.errors.password}</p>
-          )}
-        </div>
-        <div>
-          <label>
-            Confirm password
-            <input
-              type="password"
-              name="passwordConfirm"
-              required
-              defaultValue={state.values.passwordConfirm}
-            />
-          </label>
-          {state.errors.passwordConfirm && (
-            <p style={{ color: "red" }}>{state.errors.passwordConfirm}</p>
-          )}
-        </div>
-        <button type="submit">Register</button>
+      <PageHeader title="Register" />
+      <form action={formAction} className="space-y-4">
+        <FormField
+          label="Username"
+          name="username"
+          required
+          defaultValue={state.values.username}
+          errorMessage={state.errors.username}
+        />
+        <FormField
+          label="Name"
+          name="name"
+          required
+          defaultValue={state.values.name}
+          errorMessage={state.errors.name}
+        />
+        <FormField
+          label="Password"
+          name="password"
+          type="password"
+          required
+          defaultValue={state.values.password}
+          errorMessage={state.errors.password}
+        />
+        <FormField
+          label="Confirm password"
+          name="passwordConfirm"
+          type="password"
+          required
+          defaultValue={state.values.passwordConfirm}
+          errorMessage={state.errors.passwordConfirm}
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Register
+        </button>
       </form>
     </div>
   );
